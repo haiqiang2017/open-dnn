@@ -1,4 +1,4 @@
-#include <opencv2/opencv.hpp>
+﻿#include <opencv2/opencv.hpp>
 #include <opencv2/dnn.hpp>
 #include <iostream>
 
@@ -28,7 +28,7 @@ static Mat getMean(const size_t &w, const size_t &h) {
 		Mat channel(h, w, CV_32F, Scalar(meanValues[i]));
 		channels.push_back(channel);
 	}
-	merge(channels, mean);//��ͨ���ŵ�mean�� split�Ƿָ�ͼ��
+	merge(channels, mean);//把通道放到mean中 split是分割图像
 	
 	return mean;
 }
@@ -37,9 +37,9 @@ static Mat preprocess(const Mat &frame) {
 	Mat preprocessed;
 	frame.convertTo(preprocessed, CV_32F);
 	resize(preprocessed, preprocessed, Size(width, height)); // 300x300 image
-	Mat mean = getMean(width, height);//��ȡ��ֵͼ��
+	Mat mean = getMean(width, height);//获取均值图像
 	imshow("mean", mean);
-	subtract(preprocessed, mean, preprocessed);//ԭͼ���ȥ��ֵͼ�񣬻�ȡ��Ҫ����
+	subtract(preprocessed, mean, preprocessed);//原图像减去均值图像，获取主要特征
 	imshow("preprocessed", preprocessed);
 	return preprocessed;
 }
@@ -94,6 +94,25 @@ int main1(int argc, char** argv) {
 			rectangle(frame, object_box, Scalar(0, 0, 255), 2, 8, 0);
 	//		cout << objNames[objIndex].c_str() << endl;
 	//		putText(frame, format("%s", objNames[objIndex].c_str()),Point(tl_x, tl_y), FONT_HERSHEY_PLAIN, 1.0, Scalar(255, 0, 0), 2);
+			/*
+			原型 void putText( Mat& img, const string& text, Point org, int fontFace,double fontScale，  Scalar color, int thickness=1, int lineType=8 );
+
+            参数1：， Mat& img，待写字的图片，我们写在img图上
+
+			参数2：，const string& text，待写入的字，我们下面写入Hello
+			
+			参数3：， Point org， 第一个字符左下角坐标，我们设定在图片的Point（50,60）坐标。表示x = 50,y = 60。
+			
+			参数4：，int fontFace，字体类型，FONT_HERSHEY_SIMPLEX ，FONT_HERSHEY_PLAIN ，FONT_HERSHEY_DUPLEX 等等等。
+			
+			参数5：，double fontScale，字体大小，我们设置为2号
+			
+			参数6：，Scalar color，字体颜色，颜色用Scalar（）表示
+			
+			参数7：， int thickness，字体粗细，我们下面代码使用的是4号
+			
+			参数8：， int lineType，线型，我们使用默认值8.
+			*/
 		}
 	}
 	imshow("ssd-demo", frame);
@@ -101,7 +120,7 @@ int main1(int argc, char** argv) {
 	waitKey(0);
 	return 0;
 }
-//cvtColor ɫ�ʿռ�ת������
+//cvtColor 色彩空间转换函数
 vector<String> readclass()
 {
 	vector<String> result;
@@ -127,7 +146,7 @@ vector<String> readlabel()
 		getline(fp,name);
 		if (name.length())
 		{
-			string d1 = name.substr(name.find(",") + 1);//��һ�����ĺ���
+			string d1 = name.substr(name.find(",") + 1);//第一个，的后面
 			string d2 = d1.substr(d1.find(",") + 1);
 			result.push_back(d2);
 		}
