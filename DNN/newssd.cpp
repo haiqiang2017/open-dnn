@@ -89,7 +89,7 @@ int main(int argc, char** argv)
 
 			Rect rct((int)x1, (int)y1, (int)(x2 - x1), (int)(y2 - y1));//x1,x2,weight,height
 
-			rectangle(src, rct, Scalar(3, 4, 32), 2, 8, 0);
+			rectangle(src, rct, Scalar(3, 4, 32), 2, 8, 0);//粗细，线的类型，小数点个数
 		}
 		
 	}
