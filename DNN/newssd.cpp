@@ -37,7 +37,7 @@ Mat preprocessed(const Mat &src)
 	imshow("out_p", out_p);
 	return out_p;
 }
-int main(int argc, char** argv)
+int mainn(int argc, char** argv)
 {
 	Mat src = imread("D:/test/test.jpg");
 	if (src.empty())
