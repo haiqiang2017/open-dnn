@@ -109,6 +109,7 @@ int main1(int argc, char** argv) {
 			
 			参数6：，Scalar color，字体颜色，颜色用Scalar（）表示
 			
+
 			参数7：， int thickness，字体粗细，我们下面代码使用的是4号
 			
 			参数8：， int lineType，线型，我们使用默认值8.
