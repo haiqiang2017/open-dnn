@@ -33,7 +33,6 @@ int main(int argc, char** argv)
 	}
 	Net net;//初始化网络
 	impoter->populateNet(net);//填充网络
-	impoter.release();
 	Mat blobImg = blobFromImage(src, 1.0, Size(224, 224), Scalar(104, 103, 127));
 	Mat out_p;//输出1*1000 的矩阵
 	for (int i = 0; i < 10; i++)//一般与信息增广数量一致，用于输入不同维度下同一个图片的效果
@@ -46,7 +45,7 @@ int main(int argc, char** argv)
 	Mat probMat = out_p.reshape(1, 1);
 	cout << probMat.size() << probMat.rows<<" "<<probMat.cols<< endl;
 	Point pt;//最大值的位置
-	double max_val;//最大值
+	double max_val;
 	minMaxLoc(probMat, NULL, &max_val, NULL, &pt);
 	cout << max_val << pt << endl;
 	putText(src, format("%s", labels[pt.x].c_str()), Point(20, 20),FONT_HERSHEY_PLAIN,1.0,Scalar(1,2,3), 2, 8, 0);
