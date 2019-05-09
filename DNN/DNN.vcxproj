@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClCompile Include="google.cpp" />
     <ClCompile Include="newssd.cpp" />
+    <ClCompile Include="new_google.cpp" />
     <ClCompile Include="ssd_dete.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>

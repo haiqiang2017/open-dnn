@@ -13,7 +13,7 @@ cv::String model_gtxt_file = "D:/new_cv/opencv/sources/samples/data/dnn/bvlc_goo
 String label_gtxt_file = "D:/new_cv/opencv/sources/samples/data/dnn/synset_words.txt";
 vector<String> readlabels();
 
-int main(int argc, char** argv)
+int maing(int argc, char** argv)
 {
 	Mat src = imread("D:/new_cv/opencv/sources/samples/data/apple.jpg");
 	if (src.empty())
