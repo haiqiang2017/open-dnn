@@ -33,5 +33,11 @@
     <ClCompile Include="read_from_video.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="video_detection.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="tmp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

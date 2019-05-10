@@ -121,6 +121,8 @@
     <ClCompile Include="new_google.cpp" />
     <ClCompile Include="read_from_video.cpp" />
     <ClCompile Include="ssd_dete.cpp" />
+    <ClCompile Include="tmp.cpp" />
+    <ClCompile Include="video_detection.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
