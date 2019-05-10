@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="google.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -28,6 +25,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="new_google.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="mobile_detection.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="read_from_video.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

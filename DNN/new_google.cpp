@@ -12,7 +12,7 @@ String label_gt_file = "D:/new_cv/opencv/sources/samples/data/dnn/synset_words.t
 vector<String> readfromgtxt();
 const size_t width = 224;
 const size_t height = 224;
-int main(int argc, char** argv)
+int mainng(int argc, char** argv)
 {
 	vector<String> labels = readfromgtxt();
 	Mat src = imread("D:/test/test.jpg");

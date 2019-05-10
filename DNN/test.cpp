@@ -3,13 +3,13 @@ using namespace std;
 
 void mains()
 {
-	const char* classNames[] = { "background",
+	const char* className[] = { "background",
 "aeroplane", "bicycle", "bird", "boat",
 "bottle", "bus", "car", "cat", "chair",
 "cow", "diningtable", "dog", "horse",
 "motorbike", "person", "pottedplant",
 "sheep", "sofa", "train", "tvmonitor" };
-	cout <<"sizeof"<< sizeof(classNames);
+	cout <<"sizeof"<< sizeof(className);
 	cout << "length" << 
 	system("pause");
 	return;

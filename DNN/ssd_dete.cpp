@@ -11,12 +11,7 @@ const size_t height = 300;
 cv::String labelFile = "D:/new_cv/opencv/sources/samples/data/dnn/model_ssd_det/label.txt";
 cv::String model_det_bin_file = "D:/new_cv/opencv/sources/samples/data/dnn/model_ssd_det/VGG_ILSVRC2016_SSD_300x300_iter_440000.caffemodel";
 cv::String model_det_txt_file = "D:/new_cv/opencv/sources/samples/data/dnn/model_ssd_det/deploy.prototxt";
-const char* classNames[] = { "background",
-"aeroplane", "bicycle", "bird", "boat",
-"bottle", "bus", "car", "cat", "chair",
-"cow", "diningtable", "dog", "horse",
-"motorbike", "person", "pottedplant",
-"sheep", "sofa", "train", "tvmonitor" };
+
 vector<String> readLabels();
 vector<String> readlabel();
 vector<String> readclass();
@@ -121,16 +116,7 @@ int main1(int argc, char** argv) {
 	waitKey(0);
 	return 0;
 }
-//cvtColor 色彩空间转换函数
-vector<String> readclass()
-{
-	vector<String> result;
-	for (int i = 0; i < sizeof(classNames); i++)
-	{
-		result.push_back(string(classNames[i]));
-	}
-	return result;
-}
+
 vector<String> readlabel()
 {
 	ifstream fp(labelFile);
