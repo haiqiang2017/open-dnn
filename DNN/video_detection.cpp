@@ -61,7 +61,7 @@ Mat detect_from_video(Mat &src)
 	}
 	return src;
 }
-int main(int argc, char** argv)
+int mainmv(int argc, char** argv)
 {
 	VideoCapture capture;
 	capture.open("D:/new_cv/opencv/sources/samples/data/vtest.avi");
