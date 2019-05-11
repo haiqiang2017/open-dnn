@@ -4,10 +4,19 @@
 using namespace std;
 using namespace cv;
 using namespace cv::dnn;
+void predict_age(Mat &src);
+void predict_gender(Mat &src);
+String case_file = "D:/new_cv/opencv/sources/data/haarcascades/haarcascade_frontalface_alt_tree.xml";
+String model_age1_file = "D:/new_cv/opencv/sources/samples/data/age_net.caffemodel";
+String model_age1_txt = "D:/new_cv/opencv/sources/samples/data/age_deploy.prototxt";
+
+String model_gender1_bin = "D:/new_cv/opencv/sources/samples/data/gender_net.caffemodel";
+String model_gender1_txt = "D:/new_cv/opencv/sources/samples/data/gender_deploy.prototxt";
 
 int main(int argc, char** argv)
 {
-	String case_file = "D:/new_cv/opencv/sources/data/haarcascades/haarcascade_frontalface_alt_tree.xml";
+
+
 	Mat src = imread("D:/test/test.jpg");
 	if (src.empty())
 	{
@@ -28,7 +37,7 @@ int main(int argc, char** argv)
 	cvtColor(src, gray, CV_RGB2GRAY);//获取灰度图像
 	imshow("gray", gray);
 	equalizeHist(gray, gray);
-	cascader.detectMultiScale(gray, res, 1.2, 3, 0, Size(27, 27));
+	cascader.detectMultiScale(gray, res, 1.02, 1, 0, Size(27, 27));
 	/*
 	void detectMultiScale(
 	const Mat& image,                //待检测灰度图像
@@ -41,12 +50,62 @@ int main(int argc, char** argv)
 	Size maxSize = Size()            //最后两个参数用来限制得到的目标区域的范围
 	);
 	*/
+	cout << res.size() << endl;
 	for (size_t t = 0; t < res.size(); t++)
 	{
 		rectangle(src, res[t], Scalar(1, 1, 2), 1, 8, 0);
+		Mat dst = src(res[t]);
+		predict_age(dst);
+		predict_gender(dst);
 	}
 	imshow("detection result", src);
 
 	waitKey(0);
 	return 0;
+}
+vector<String> get_age_label()
+{
+	vector<String> age_labels;
+	age_labels.push_back("0-2");
+	age_labels.push_back("4-6");
+	age_labels.push_back("8-13");
+	age_labels.push_back("15-20");
+	age_labels.push_back("25-32");
+	age_labels.push_back("38-43");
+	age_labels.push_back("48-53");
+	age_labels.push_back("60-");
+	return age_labels;
+}
+void predict_age(Mat &src)
+{
+	Net net = readNetFromCaffe(model_age1_txt, model_age1_file);
+	if (net.empty())
+	{
+		cout << "load net error" << endl;
+		exit(-1);
+	}
+	Mat blobImg = blobFromImage(src, 1.0, Size(227, 227));
+	net.setInput(blobImg, "data");
+	Mat probMat = net.forward("prob");
+	probMat.reshape(1, 1);//1行1通道
+	Point index;//坐标信息
+	double objvalue;//最大检测值
+	minMaxLoc(probMat, NULL, &objvalue, NULL, &index);//忽略最小值，取最大值
+	size_t objindex = index.x;//label 下标
+	vector<String>labels = get_age_label();
+	putText(src, format("age:%s", labels[objindex].c_str()), Point(2, 20), FONT_HERSHEY_PLAIN, 0.7, Scalar(1, 12, 3), 1, 8);
+}
+void predict_gender(Mat &src)
+{
+	Net net = readNetFromCaffe(model_age1_txt, model_age1_file);
+	if (net.empty())
+	{
+		cout << "load net error" << endl;
+		exit(-1);
+	}
+	Mat blobImg = blobFromImage(src, 1.0, Size(227, 227));
+	net.setInput(blobImg, "data");
+	Mat probMat = net.forward("prob");
+	probMat.reshape(1, 1);//1行1通道
+	putText(src, format("gender:%s", (probMat.size[0] > probMat.size[1] ? "M" : "F")), Point(2, 10), FONT_HERSHEY_PLAIN, 0.7, Scalar(2, 2, 3), 1, 8);
 }
