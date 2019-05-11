@@ -118,6 +118,7 @@
     <ClCompile Include="age_gender_predict.cpp" />
     <ClCompile Include="google.cpp" />
     <ClCompile Include="mobile_detection.cpp" />
+    <ClCompile Include="net_cas.cpp" />
     <ClCompile Include="newssd.cpp" />
     <ClCompile Include="new_google.cpp" />
     <ClCompile Include="read_from_video.cpp" />

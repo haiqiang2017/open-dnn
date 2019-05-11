@@ -6,13 +6,14 @@ using namespace cv;
 using namespace cv::dnn;
 using namespace std;
 String haar_file = "D:/new_cv/opencv/sources/data/haarcascades_cuda/haarcascade_frontalface_alt_tree.xml";
-String model_age_file = "D:/new_cv/opencv/sources/data/age_net.caffemodel";
-String model_age_txt = "D:/new_cv/opencv/sources/data/age_deploy.prototxt";
+String model_age_file = "D:/new_cv/opencv/sources/samples/data/age_net.caffemodel";
+String model_age_txt = "D:/new_cv/opencv/sources/samples/data/age_deploy.prototxt";
 
-String model_gender_bin = "D:/new_cv/opencv/sources/data/gender_net.caffemodel";
-String model_gender_txt = "D:/new_cv/opencv/sources/data/gender_deploy.prototxt";
-
-int main(int argc, char** argv)
+String model_gender_bin = "D:/new_cv/opencv/sources/samples/data/gender_net.caffemodel";
+String model_gender_txt = "D:/new_cv/opencv/sources/samples/data/gender_deploy.prototxt";
+void predict_age(Net &net, Mat &image);
+void predict_gender(Net &net, Mat &image);
+int mainage(int argc, char** argv)
 {
 	Mat src = imread("D:/test/test.jpg");
 	if (src.empty())
@@ -29,12 +30,13 @@ int main(int argc, char** argv)
 
 	Net age_net = readNetFromCaffe(model_age_txt, model_age_file);
 	Net gender_net = readNetFromCaffe(model_gender_txt, model_gender_bin);
-
 	for (size_t t = 0; t < faces.size(); t++)
 	{
 		rectangle(src, faces[t], Scalar(30, 255, 30), 2, 8, 0);
-		predict_age(age_net, src(faces[t]));
-		predict_gender(gender_net, src(faces[t]));
+		Mat face = src(faces[t]);
+		//imshow("face", face);
+		predict_age(age_net,face);
+		predict_gender(gender_net,face);
 	}
 	imshow("age", src);
 
@@ -65,9 +67,11 @@ void predict_age(Net &net, Mat &image)
 	Point index;
 	minMaxLoc(probMat, NULL, &age, NULL,&index);
 	int classidx = index.x;
-	putText(image, format("%s", ages.at(classidx).c_str()), Point(2, 10), FONT_HERSHEY_SCRIPT_SIMPLEX, 1.0, Scalar(0, 0, 255), 2, 8, 0);
+//	putText(image, format("age:%s", ages.at(classidx).c_str()), Point(2, 10), FONT_HERSHEY_PLAIN, 0.8, Scalar(0, 0, 255), 1);
+
+//	putText(image, format("%s", ages.at(classidx).c_str()), Point(2, 10), FONT_HERSHEY_PLAIN, 1.0, Scalar(0, 0, 255), 1, 8, 0);
 }
-Mat predict_gender(Net &net, Mat &image)
+void predict_gender(Net &net, Mat &image)
 {
 	Mat blob = blobFromImage(image, 1.0, Size(227, 227));
 	net.setInput(blob, "data");
@@ -77,5 +81,6 @@ Mat predict_gender(Net &net, Mat &image)
 	double classnum;
 	minMaxLoc(probMat, NULL, &classnum, NULL, &index);
 	double classidx = index.x;
-	putText(image, format("ÐÔ±ð%s", (probMat.at<float>(0, 0) > probMat.at<float>(0, 1) ? "M":"F")), Point(2, 20), FONT_HERSHEY_SCRIPT_SIMPLEX, 1.0, Scalar(0, 0, 255), 2, 8, 0);
+	putText(image, format("gender:%s", (probMat.at<float>(0, 0) > probMat.at<float>(0, 1) ? "M" : "F")),Point(2, 20), FONT_HERSHEY_PLAIN, 0.8, Scalar(0, 0, 255), 1);
+	//putText(image, format("gender:%s", (probMat.at<float>(0, 0) > probMat.at<float>(0, 1) ? "M":"F")), Point(2, 20), FONT_HERSHEY_SCRIPT_SIMPLEX, 1.0, Scalar(0, 0, 255), 2, 8, 0);
 }
