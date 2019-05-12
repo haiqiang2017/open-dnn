@@ -13,7 +13,7 @@ String model_age1_txt = "D:/new_cv/opencv/sources/samples/data/age_deploy.protot
 String model_gender1_bin = "D:/new_cv/opencv/sources/samples/data/gender_net.caffemodel";
 String model_gender1_txt = "D:/new_cv/opencv/sources/samples/data/gender_deploy.prototxt";
 
-int main(int argc, char** argv)
+int mainnew(int argc, char** argv)
 {
 
 

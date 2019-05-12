@@ -45,5 +45,8 @@
     <ClCompile Include="net_cas.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="fcn.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
